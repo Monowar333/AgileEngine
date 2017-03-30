@@ -16,7 +16,7 @@ public class Rectangles {
 		this.xmax = xmax;
 		this.ymin = ymin;
 		this.ymax = ymax;
-		this.flag = false;
+		this.flag = true;
 	}
 	
 	
