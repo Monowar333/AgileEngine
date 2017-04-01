@@ -21,14 +21,17 @@ public class Main {
 
 	    try{
 	        File sourceimage = new File("image1.png");
-	        File sourceimage2 = new File("image4 (1).png");
+	        File sourceimage2 = new File("image4.png");
 	        image = ImageIO.read(sourceimage);
 	        image2 = ImageIO.read(sourceimage2);
 	        imageout = new ImageComparison().comprasion(image, image2);
+	        File picture = new File("result.png");
+	        ImageIO.write(imageout, "png", picture);
 	    } catch (IOException e) {
 
 	    }
-
+	    
+	    
 	    JFrame frame = new JFrame();
 
 	    JLabel label = new JLabel(new ImageIcon(imageout));
