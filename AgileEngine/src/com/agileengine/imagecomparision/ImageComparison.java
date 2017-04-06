@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.agileengine.main.Figure;
 import com.agileengine.main.Rectangles;
 
 public class ImageComparison {
 	private BufferedImage image = null;
 	private BufferedImage image2 = null;
 	private BufferedImage imageout = null;
-	private List<Rectangles> rectList;
+	private List<Figure> rectList;
 
 	public BufferedImage comprasion(BufferedImage image, BufferedImage image2) {
 		this.image = image;
@@ -35,7 +36,7 @@ public class ImageComparison {
 				if (!compareRGB(rgb1, rgb2)) {
 					countflag = 0;
 					if (rectList.size() != 0) {
-						for (Rectangles rectIn : rectList) {
+						for (Figure rectIn : rectList) {
 							if ((i <= rectIn.getXmax() + 5 && 
 									i >= rectIn.getXmin() - 5 && 
 									j <= rectIn.getYmax() + 5 && 
@@ -71,17 +72,16 @@ public class ImageComparison {
 		}
 
 		System.out.println("Count: " + rectList.size());
-		for (Rectangles rectIn : rectList) {
+		for (Figure rectIn : rectList) {
 			System.out.println(rectIn.toString());
 		}
 		rectanglesMarge();
 		System.out.println("Count: " + rectList.size());
-		for (Rectangles rectIn : rectList) {
+		for (Figure rectIn : rectList) {
 			System.out.println(rectIn.toString());
 		}
-		for (Rectangles rectIn : rectList) {
-			g.drawRect(rectIn.getXmin(), rectIn.getYmin(), rectIn.getXmax() - rectIn.getXmin(),
-					rectIn.getYmax() - rectIn.getYmin());
+		for (Figure rectIn : rectList) {
+			rectIn.draw(g);
 		}
 		return imageout;
 	}
@@ -90,9 +90,9 @@ public class ImageComparison {
 		int countflag = rectList.size();
 		while (countflag != 0) {
 			countflag = 0;
-			for (Rectangles rectRes : rectList) {
+			for (Figure rectRes : rectList) {
 				if (rectRes.isFlag()) {
-					for (Rectangles rectIn : rectList) {
+					for (Figure rectIn : rectList) {
 						if ((rectIn.isFlag()) && (!rectIn.equals(rectRes)) && ((rectIn.getXmax() <= rectRes.getXmax()
 								&& rectIn.getXmax() >= rectRes.getXmin() && rectIn.getYmax() <= rectRes.getYmax()
 								&& rectIn.getYmax() >= rectRes.getYmin())
@@ -127,9 +127,9 @@ public class ImageComparison {
 					}
 				}
 			}
-			Iterator<Rectangles> it = rectList.iterator();
+			Iterator<Figure> it = rectList.iterator();
 			while (it.hasNext()) {
-				Rectangles rec = it.next();
+				Figure rec = it.next();
 				if (!rec.isFlag()) {
 					it.remove();
 				}
@@ -149,11 +149,11 @@ public class ImageComparison {
 				(b2 >= b1 * 0.9) && (b2 <= b1 * 1.1);
 	}
 
-	public List<Rectangles> getRectList() {
+	public List<Figure> getRectList() {
 		return rectList;
 	}
 
-	public void setRectList(List<Rectangles> rectList) {
+	public void setRectList(List<Figure> rectList) {
 		this.rectList = rectList;
 	}
 
